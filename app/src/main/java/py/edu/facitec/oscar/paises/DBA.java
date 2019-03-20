@@ -32,4 +32,13 @@ public class DBA<T> {
     public  Dao<T, Integer> getDao(){
             return dao;
     }
+
+    public static Dao<Pais, Integer> getPaisDao(){
+		try {
+			return DataBaseManager.getInstance().getHelper().getDao(Pais.class);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

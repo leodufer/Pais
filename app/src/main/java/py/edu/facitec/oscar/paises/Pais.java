@@ -9,7 +9,7 @@ import java.util.Date;
 public class Pais {
     @DatabaseField(generatedId = true)
     private int id;
-    @DatabaseField
+    @DatabaseField(unique = true)
     private String name;
     @DatabaseField
     private String code;

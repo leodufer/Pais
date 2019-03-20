@@ -4,9 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.Date;
 import java.util.List;
@@ -31,6 +33,23 @@ public class MainActivity extends AppCompatActivity {
         paises = paisDao.buscarTodos();
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,paises);
         paisListView.setAdapter(adapter);
+
+        paisListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Pais p = paises.get(position);
+                paisDao.eliminar(p.getId());
+
+                paises = paisDao.buscarTodos();
+                adapter = new ArrayAdapter<>(MainActivity.this,android.R.layout.simple_list_item_1,paises);
+                paisListView.setAdapter(adapter);
+                //TODO AlertDialog para confirmar
+                Toast.makeText(MainActivity.this,"Pais "+p.getName()+" Eliminado",Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+        });
+
     }
 
     public void guardar(View view){

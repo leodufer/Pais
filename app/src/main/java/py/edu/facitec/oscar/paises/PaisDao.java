@@ -14,7 +14,7 @@ public class PaisDao extends DBA<Pais> {
 
     public void guardar(Pais pais){
         try {
-            this.getDao().create(pais);
+            DBA.getPaisDao().create(pais);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -22,10 +22,18 @@ public class PaisDao extends DBA<Pais> {
 
     public List<Pais> buscarTodos(){
         try {
-            return this.getDao().queryForAll();
+            return DBA.getPaisDao().queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void eliminar(int id){
+        try {
+            DBA.getPaisDao().deleteById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
